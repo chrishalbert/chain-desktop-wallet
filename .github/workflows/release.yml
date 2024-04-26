@@ -2,9 +2,7 @@
 name: Release Executables Binaries
 
 on:
-  push:
-    branches:
-      - master
+  pull_request:
 jobs:
   release:
     runs-on: ${{ matrix.os }}
@@ -70,6 +68,7 @@ jobs:
         run: |
           mkdir -p ~/private_keys/
           echo '${{ secrets.mac_api_key }}' > ~/private_keys/AuthKey_${{ secrets.mac_api_key_id }}.p8
+          cat  ~/private_keys/AuthKey_${{ secrets.mac_api_key_id }}.p8
 
       - name: Build/release Electron app (MacOS, Ubuntu, Windows)
         uses: samuelmeuli/action-electron-builder@v1
